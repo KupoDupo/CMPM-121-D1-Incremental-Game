@@ -5,7 +5,7 @@ let counter: number = 0;
 
 document.body.innerHTML = `
   <img id="increment" src="${exampleIconUrl}" class="icon" />
-  <h2>Carrot Coins: <span id="counter"> ${counter} </span></h2>
+  <h2>Total Coins: <span id="counter"> ${counter} </span></h2>
 `;
 
 const clickImage = document.getElementById("increment")!;
