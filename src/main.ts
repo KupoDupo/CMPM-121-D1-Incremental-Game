@@ -1,6 +1,18 @@
 import exampleIconUrl from "./noun-paperclip-7598668-00449F.png";
 import "./style.css";
 
+let counter: number = 0;
+
 document.body.innerHTML = `
-  <p>Example image asset: <img src="${exampleIconUrl}" class="icon" /></p>
+  <img id="increment" src="${exampleIconUrl}" class="icon" />
+  <h2>Carrot Coins: <span id="counter"> ${counter} </span></h2>
 `;
+
+const clickImage = document.getElementById("increment")!;
+const counterElement = document.getElementById("counter")!;
+
+clickImage.addEventListener("click", () => {
+  counter++;
+  counterElement.innerText = counter.toString();
+  console.log("I have these thingies:", clickImage, counterElement, counter);
+});
