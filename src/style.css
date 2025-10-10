@@ -1,3 +1,30 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 300px;
+  background-color: #e7ffce;
+  border: 10px solid #b6da9f;
+  border-radius: 36px;
+}
+
+h2 {
+  margin-top: 50px;
+}
+
 .icon {
   width: 64px;
   vertical-align: top;
