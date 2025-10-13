@@ -3,7 +3,6 @@ import "./style.css";
 
 let counter: number = 0;
 
-/*
 interface Item {
   name: string; // name of Item
   price: number; // Item initial cost
@@ -16,8 +15,7 @@ const availableItems: Item[] = [
   { name: "bunny", price: 15, increase: 0.5, rate: 1.5 },
   { name: "badger", price: 100, increase: 2, rate: 1.5 },
 ];
-*/
-/*
+
 const itemsHtml = availableItems
   .map((it) => {
     const emoji = it.name === "bunny" ? "🐇" : it.name === "badger" ? "🦡" : "";
@@ -39,7 +37,6 @@ const itemsHtml = availableItems
       `;
   })
   .join("\n");
-*/
 
 document.body.innerHTML = `
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,13 +46,11 @@ document.body.innerHTML = `
       <div id="increment" class="icon">🥕</div>
       <h2><span><img id="coin" src="${cc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
     </div>
-  `;
-
-/* <div class="items">
+    <div class="items">
       <h1>Items</h1>
       ${itemsHtml}
     </div>
-*/
+  `;
 
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
@@ -65,7 +60,6 @@ function updateCounterDisplay() {
   counterElement.innerText = parseFloat(counter.toFixed(2)).toString();
 }
 
-/* Commenting out to do steps 3 and 4!
 // Track owned items (initialize to 0 for every available item)
 const owned: { [key: string]: number } = {};
 availableItems.forEach((it) => (owned[it.name] = 0));
@@ -82,7 +76,6 @@ function updateItemUI(it: Item) {
   }
 }
 
-
 function updateBuyButtons() {
   availableItems.forEach((it) => {
     const btn = document.getElementById(`buy-${it.name}`) as
@@ -91,16 +84,13 @@ function updateBuyButtons() {
     if (btn) btn.disabled = counter < it.price;
   });
 }
-*/
 
-// Commenting out part cause I skipped steps 3 and 4!
 clickImage.addEventListener("click", () => {
   counter++;
   updateCounterDisplay();
-  //updateBuyButtons();
+  updateBuyButtons();
 });
 
-/* Commenting out cause I skipped steps 3 and 4!
 // Attach handlers for each available item
 availableItems.forEach((it) => {
   const btn = document.getElementById(`buy-${it.name}`) as
@@ -120,37 +110,31 @@ availableItems.forEach((it) => {
   });
 });
 
-// Auto-collect: sum across all owned items
-setInterval(() => {
-  let added = 0;
-  availableItems.forEach((it) => {
-    if (owned[it.name] > 0) {
-      added += owned[it.name] * it.increase;
-    }
-  });
-  if (added > 0) {
-    counter += added;
-    updateCounterDisplay();
-    updateBuyButtons();
-    // update rates display for items
-    availableItems.forEach(updateItemUI);
-  }
-}, 1000);
-
-// initialize UI
+// UI Setup
 updateCounterDisplay();
 availableItems.forEach(updateItemUI);
 updateBuyButtons();
-*/
 
+// Holds timestamp for updating coin collector
 let lastTimestamp = performance.now();
 
+// Updates Coin Counter
 function update(time: number) {
   if (time - lastTimestamp >= 1000) {
-    counter += 1;
-    console.log("ts worked!");
+    let added = 0;
+    availableItems.forEach((it) => {
+      if (owned[it.name] > 0) {
+        added += owned[it.name] * it.increase;
+      }
+    });
+    if (added > 0) {
+      counter += added;
+      updateCounterDisplay();
+      updateBuyButtons();
+      // update rates display for items
+      availableItems.forEach(updateItemUI);
+    }
     lastTimestamp = time;
-    updateCounterDisplay();
   }
 
   requestAnimationFrame(update);
