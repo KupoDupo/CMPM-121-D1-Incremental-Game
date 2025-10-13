@@ -8,17 +8,43 @@ interface Item {
   price: number; // Item initial cost
   increase: number; // Amount Item increases carrot coins per owned unit per second
   rate: number; // price increase multiplier on purchase
+  description: string;
 }
 
-// Add bunny and badger to available items
+// Ideas: deer, cow
 const availableItems: Item[] = [
-  { name: "bunny", price: 15, increase: 0.5, rate: 1.5 },
-  { name: "badger", price: 100, increase: 2, rate: 1.5 },
+  {
+    name: "bunny",
+    price: 15,
+    increase: 0.5,
+    rate: 1.5,
+    description: "Bunnies love carrots!",
+  },
+  {
+    name: "pack of mice",
+    price: 100,
+    increase: 2,
+    rate: 1.5,
+    description: "Cutting carrots for da chedda.",
+  },
+  {
+    name: "badger",
+    price: 550,
+    increase: 10,
+    rate: 1.5,
+    description: "A big boy who cuts big pieces!",
+  },
 ];
 
 const itemsHtml = availableItems
   .map((it) => {
-    const emoji = it.name === "bunny" ? "🐇" : it.name === "badger" ? "🦡" : "";
+    const emoji = it.name === "bunny"
+      ? "🐇"
+      : it.name === "pack of mice"
+      ? "🐁🐁"
+      : it.name === "badger"
+      ? "🦡"
+      : "";
     return `
         <div class="autoclicker item-row" data-item="${it.name}">
           <h3 class="item-title">${emoji}${
@@ -28,10 +54,10 @@ const itemsHtml = availableItems
         it.price,
       )
     } coins</span></h3>
-          <p class="item-text">Collects carrots for you automatically.</p>
+          <p class="item-text">${it.description}</p>
           <div class="item-controls">
             <button id="buy-${it.name}">Buy</button>
-            <div>Owned: <span id="owned-${it.name}">0</span> — +<span id="rate-${it.name}">${it.increase}</span>/s</div>
+            <div>Owned: <span id="owned-${it.name}">0</span>, Collection: +<span id="rate-${it.name}">${it.increase}</span>/s</div>
           </div>
         </div>
       `;
