@@ -143,7 +143,7 @@ availableItems.forEach(updateItemUI);
 updateBuyButtons();
 */
 
-window.setInterval(() => {
+globalThis.setInterval(() => {
   counter += 1;
   updateCounterDisplay();
 }, 1000);
