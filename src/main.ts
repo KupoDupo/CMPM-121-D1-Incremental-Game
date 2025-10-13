@@ -143,7 +143,17 @@ availableItems.forEach(updateItemUI);
 updateBuyButtons();
 */
 
-globalThis.setInterval(() => {
-  counter += 1;
-  updateCounterDisplay();
-}, 1000);
+let lastTimestamp = performance.now();
+
+function update(time: number) {
+  if (time - lastTimestamp >= 1000) {
+    counter += 1;
+    console.log("ts worked!");
+    lastTimestamp = time;
+    updateCounterDisplay();
+  }
+
+  requestAnimationFrame(update);
+}
+
+requestAnimationFrame(update);
