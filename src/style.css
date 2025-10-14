@@ -44,7 +44,11 @@ h2 {
   margin-right: 5px;
 }
 
-.upgrades {
+h1 {
+  margin-bottom: 2px;
+}
+
+.items {
   display: flex;
   margin-left: 10px;
   flex-direction: column;
@@ -55,4 +59,57 @@ h2 {
   background-color: #e7ffce;
   border: 10px solid #b6da9f;
   border-radius: 36px;
+}
+
+hr {
+  border: none;
+  height: 10px;
+  background-color: #b6da9f;
+  width: 20vw;
+}
+
+.purchases {
+  overflow-y: auto;
+}
+
+/*Width of scrollbar*/
+.purchases::-webkit-scrollbar {
+  width: 5px;
+}
+
+/*Color and corners*/
+.purchases::-webkit-scrollbar-thumb {
+  background-color: #ffc98e;
+  border-radius: 10px;
+}
+
+/*Color when hovered*/
+.purchases::-webkit-scrollbar-thumb:hover {
+  background-color: #dcfbba;
+}
+
+/*Background of scrollbar*/
+.purchases::-webkit-scrollbar-track {
+  background-color: #dcfbba;
+}
+
+.item-row {
+  background-color: #e7ffce;
+  border: 10px solid #b6da9f;
+  border-radius: 36px;
+  width: 18vw;
+}
+
+button {
+  border-radius: 36px;
+  background-color: #ffc98e;
+  border-color: #779863;
+  color: #50463a;
+  font-family: "Sniglet", system-ui;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+p {
+  margin-bottom: 5px;
 }

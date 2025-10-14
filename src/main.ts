@@ -34,6 +34,20 @@ const availableItems: Item[] = [
     rate: 1.5,
     description: "A big boy who cuts big pieces!",
   },
+  {
+    name: "deer",
+    price: 2000,
+    increase: 100,
+    rate: 1.5,
+    description: "Very demure, very good at gardening despite having hooves",
+  },
+  {
+    name: "cow",
+    price: 5000,
+    increase: 800,
+    rate: 1.5,
+    description: "MOO",
+  },
 ];
 
 const itemsHtml = availableItems
@@ -42,11 +56,15 @@ const itemsHtml = availableItems
       ? "🐇"
       : it.name === "pack of mice"
       ? "🐁🐁"
+      : it.name === "deer"
+      ? "🦌"
+      : it.name === "cow"
+      ? "🐄"
       : it.name === "badger"
       ? "🦡"
       : "";
     return `
-        <div class="autoclicker item-row" data-item="${it.name}">
+        <div class="item-row" data-item="${it.name}">
           <h3 class="item-title">${emoji}${
       it.name[0].toUpperCase() + it.name.slice(1)
     }: <span id="cost-${it.name}">${
@@ -74,7 +92,10 @@ document.body.innerHTML = `
     </div>
     <div class="items">
       <h1>Items</h1>
-      ${itemsHtml}
+      <hr>
+      <div class="purchases">
+        ${itemsHtml}
+      <purchases">
     </div>
   `;
 
@@ -117,7 +138,7 @@ clickImage.addEventListener("click", () => {
   updateBuyButtons();
 });
 
-// Attach handlers for each available item
+// Buttonsss for each available item
 availableItems.forEach((it) => {
   const btn = document.getElementById(`buy-${it.name}`) as
     | HTMLButtonElement
@@ -127,7 +148,7 @@ availableItems.forEach((it) => {
     if (counter >= it.price) {
       counter -= it.price;
       owned[it.name]++;
-      // increase price for next purchase
+      // Increase price for next purchase
       it.price = Math.ceil(it.price * it.rate);
       updateCounterDisplay();
       updateItemUI(it);
