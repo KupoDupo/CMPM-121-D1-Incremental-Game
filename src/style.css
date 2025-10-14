@@ -10,6 +10,10 @@ body {
   font-weight: 400;
   font-style: normal;
   color: #50463a;
+  background-image: url("clovers.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
 .main {
@@ -98,6 +102,7 @@ hr {
   border: 10px solid #b6da9f;
   border-radius: 36px;
   width: 18vw;
+  padding-bottom: 25px;
 }
 
 button {

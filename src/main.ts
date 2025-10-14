@@ -1,4 +1,5 @@
 import cc from "./carrot-piece.png";
+// Credit to https://www.freeimages.com/photo/clover-field-1158154
 import "./style.css";
 
 let counter: number = 0;
@@ -9,6 +10,8 @@ interface Item {
   increase: number; // Amount Item increases carrot coins per owned unit per second
   rate: number; // price increase multiplier on purchase
   description: string;
+  scale: number;
+  owned: number;
 }
 
 // Ideas: deer, cow
@@ -17,22 +20,28 @@ const availableItems: Item[] = [
     name: "bunny",
     price: 15,
     increase: 0.5,
-    rate: 1.5,
+    rate: 1.2,
     description: "Bunnies love carrots!",
+    scale: 0.3,
+    owned: 0,
   },
   {
     name: "pack of mice",
     price: 100,
     increase: 2,
-    rate: 1.5,
+    rate: 1.3,
     description: "Cutting carrots for da chedda.",
+    scale: 0.1,
+    owned: 0,
   },
   {
     name: "badger",
     price: 550,
     increase: 10,
-    rate: 1.5,
+    rate: 1.4,
     description: "A big boy who cuts big pieces!",
+    scale: 0.6,
+    owned: 0,
   },
   {
     name: "deer",
@@ -40,13 +49,17 @@ const availableItems: Item[] = [
     increase: 100,
     rate: 1.5,
     description: "Very demure, very good at gardening despite having hooves",
+    scale: 0.85,
+    owned: 0,
   },
   {
     name: "cow",
     price: 5000,
     increase: 800,
-    rate: 1.5,
+    rate: 1.8,
     description: "MOO",
+    scale: 1,
+    owned: 0,
   },
 ];
 
@@ -75,7 +88,7 @@ const itemsHtml = availableItems
           <p class="item-text">${it.description}</p>
           <div class="item-controls">
             <button id="buy-${it.name}">Buy</button>
-            <div>Owned: <span id="owned-${it.name}">0</span>, Collection: +<span id="rate-${it.name}">${it.increase}</span>/s</div>
+            <div>Owned: <span id="owned-${it.name}">${it.owned}</span>, Collection: +<span id="rate-${it.name}">${it.increase}</span>/s</div>
           </div>
         </div>
       `;
