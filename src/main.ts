@@ -9,12 +9,11 @@ interface Item {
   price: number; // Item initial cost
   increase: number; // Amount Item increases carrot coins per owned unit per second
   rate: number; // price increase multiplier on purchase
-  description: string;
-  scale: number;
-  owned: number;
+  description: string; // description of cutie
+  scale: number; // scale of emoji in background
+  owned: number; // number owned
 }
 
-// Ideas: deer, cow
 const availableItems: Item[] = [
   {
     name: "bunny",
@@ -161,7 +160,6 @@ availableItems.forEach((it) => {
     if (counter >= it.price) {
       counter -= it.price;
       owned[it.name]++;
-      // Increase price for next purchase
       it.price = Math.ceil(it.price * it.rate);
       updateCounterDisplay();
       updateItemUI(it);
@@ -191,7 +189,6 @@ function update(time: number) {
       counter += added;
       updateCounterDisplay();
       updateBuyButtons();
-      // update rates display for items
       availableItems.forEach(updateItemUI);
     }
     lastTimestamp = time;
