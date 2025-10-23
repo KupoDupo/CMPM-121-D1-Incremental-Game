@@ -51,6 +51,10 @@ h2 {
   user-select: none;
 }
 
+.icon:hover {
+  transform: scale(1.05);
+}
+
 .coin {
   height: 25px;
   margin-right: 5px;
@@ -123,6 +127,13 @@ button {
   font-family: "Sniglet", system-ui;
   font-size: 18px;
   margin-bottom: 5px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  border-color: #a0a0a0;
+  color: #707070;
 }
 
 p {
