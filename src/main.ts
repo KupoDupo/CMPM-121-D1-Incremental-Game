@@ -109,8 +109,11 @@ document.body.innerHTML = `
         ${itemsHtml}
       <purchases">
     </div>
+    <div id="creatures">
+    </div>
   `;
 
+// const creaturesDiv = document.getElementById("creatures") as HTMLElement;
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
 
