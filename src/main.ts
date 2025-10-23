@@ -107,7 +107,7 @@ document.body.innerHTML = `
       <hr>
       <div class="purchases">
         ${itemsHtml}
-      <purchases">
+      </div>
     </div>
     <div id="creatures">
     </div>
