@@ -1,4 +1,4 @@
-import cc from "./carrot-piece.png";
+import carrotCoinSrc from "./carrot-piece.png";
 // Credit to https://www.freeimages.com/photo/clover-field-1158154
 import "./style.css";
 
@@ -63,31 +63,31 @@ const availableItems: Item[] = [
 ];
 
 const itemsHtml = availableItems
-  .map((it) => {
-    const emoji = it.name === "bunny"
+  .map((item) => {
+    const emoji = item.name === "bunny"
       ? "🐇"
-      : it.name === "pack of mice"
+      : item.name === "pack of mice"
       ? "🐁🐁"
-      : it.name === "deer"
+      : item.name === "deer"
       ? "🦌"
-      : it.name === "cow"
+      : item.name === "cow"
       ? "🐄"
-      : it.name === "badger"
+      : item.name === "badger"
       ? "🦡"
       : "";
     return `
-        <div class="item-row" data-item="${it.name}">
+        <div class="item-row" data-item="${item.name}">
           <h3 class="item-title">${emoji}${
-      it.name[0].toUpperCase() + it.name.slice(1)
-    }: <span id="cost-${it.name}">${
+      item.name[0].toUpperCase() + item.name.slice(1)
+    }: <span id="cost-${item.name}">${
       Math.ceil(
-        it.price,
+        item.price,
       )
     } coins</span></h3>
-          <p class="item-text">${it.description}</p>
+          <p class="item-text">${item.description}</p>
           <div class="item-controls">
-            <button id="buy-${it.name}">Buy</button>
-            <div>Owned: <span id="owned-${it.name}">${it.owned}</span>, Collection: +<span id="rate-${it.name}">${it.increase}</span>/s</div>
+            <button id="buy-${item.name}">Buy</button>
+            <div>Owned: <span id="owned-${item.name}">${item.owned}</span>, Collection: +<span id="rate-${item.name}">${item.increase}</span>/s</div>
           </div>
         </div>
       `;
@@ -100,7 +100,7 @@ document.body.innerHTML = `
     <link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
     <div class="main">
       <div id="increment" class="icon">🥕</div>
-      <h2><span><img id="coin" src="${cc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
+      <h2><span><img id="coin" src="${carrotCoinSrc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
     </div>
     <div class="items">
       <h1>Items</h1>
