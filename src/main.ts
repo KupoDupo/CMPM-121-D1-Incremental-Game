@@ -2,8 +2,10 @@ import carrotCoinSrc from "./carrot-piece.png";
 // Credit to https://www.freeimages.com/photo/clover-field-1158154
 import "./style.css";
 
+/** VARIABLE DECLARATIONS */
 let counter: number = 0;
 
+// Item interface definition
 interface Item {
   name: string; // name of Item
   price: number; // Item initial cost
@@ -14,6 +16,7 @@ interface Item {
   owned: number; // number owned
 }
 
+// Add items here to be purchased
 const availableItems: Item[] = [
   {
     name: "bunny",
@@ -62,6 +65,7 @@ const availableItems: Item[] = [
   },
 ];
 
+/** HTML CREATION */
 const itemsHtml = availableItems
   .map((item) => {
     const emoji = item.name === "bunny"
@@ -113,6 +117,7 @@ document.body.innerHTML = `
     </div>
   `;
 
+/** GAME LOGIC */
 // const creaturesDiv = document.getElementById("creatures") as HTMLElement;
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
@@ -124,48 +129,51 @@ function updateCounterDisplay() {
 
 // Track owned items (initialize to 0 for every available item)
 const owned: { [key: string]: number } = {};
-availableItems.forEach((it) => (owned[it.name] = 0));
+availableItems.forEach((item) => (owned[item.name] = 0));
 
-function updateItemUI(it: Item) {
-  const costEl = document.getElementById(`cost-${it.name}`);
-  const ownedEl = document.getElementById(`owned-${it.name}`);
-  const rateEl = document.getElementById(`rate-${it.name}`);
-  if (costEl) costEl.textContent = `${Math.ceil(it.price)} coins`;
-  if (ownedEl) ownedEl.textContent = owned[it.name].toString();
+// Update UI for a specific item
+function updateItemUI(item: Item) {
+  const costEl = document.getElementById(`cost-${item.name}`);
+  const ownedEl = document.getElementById(`owned-${item.name}`);
+  const rateEl = document.getElementById(`rate-${item.name}`);
+  if (costEl) costEl.textContent = `${Math.ceil(item.price)} coins`;
+  if (ownedEl) ownedEl.textContent = owned[item.name].toString();
   if (rateEl) {
-    const perSec = it.increase * owned[it.name];
+    const perSec = item.increase * owned[item.name];
     rateEl.textContent = parseFloat(perSec.toFixed(2)).toString();
   }
 }
 
+// Enable/disable buy buttons based on affordability
 function updateBuyButtons() {
-  availableItems.forEach((it) => {
-    const btn = document.getElementById(`buy-${it.name}`) as
+  availableItems.forEach((item) => {
+    const btn = document.getElementById(`buy-${item.name}`) as
       | HTMLButtonElement
       | null;
-    if (btn) btn.disabled = counter < it.price;
+    if (btn) btn.disabled = counter < item.price;
   });
 }
 
+// Ties these functions/updates to clicking the carrot image
 clickImage.addEventListener("click", () => {
   counter++;
   updateCounterDisplay();
   updateBuyButtons();
 });
 
-// Buttonsss for each available item
-availableItems.forEach((it) => {
-  const btn = document.getElementById(`buy-${it.name}`) as
+// Buttons for each available item
+availableItems.forEach((item) => {
+  const btn = document.getElementById(`buy-${item.name}`) as
     | HTMLButtonElement
     | null;
   if (!btn) return;
   btn.addEventListener("click", () => {
-    if (counter >= it.price) {
-      counter -= it.price;
-      owned[it.name]++;
-      it.price = Math.ceil(it.price * it.rate);
+    if (counter >= item.price) {
+      counter -= item.price;
+      owned[item.name]++;
+      item.price = Math.ceil(item.price * item.rate);
       updateCounterDisplay();
-      updateItemUI(it);
+      updateItemUI(item);
       updateBuyButtons();
     }
   });
@@ -183,9 +191,9 @@ let lastTimestamp = performance.now();
 function update(time: number) {
   if (time - lastTimestamp >= 1000) {
     let added = 0;
-    availableItems.forEach((it) => {
-      if (owned[it.name] > 0) {
-        added += owned[it.name] * it.increase;
+    availableItems.forEach((item) => {
+      if (owned[item.name] > 0) {
+        added += owned[item.name] * item.increase;
       }
     });
     if (added > 0) {
