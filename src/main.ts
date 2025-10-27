@@ -65,7 +65,11 @@ const availableItems: Item[] = [
   },
 ];
 
-/** HTML CREATION */
+// Track owned items (initialize to 0 for every available item)
+const owned: { [key: string]: number } = {};
+availableItems.forEach((item) => (owned[item.name] = 0));
+
+/** HTML CREATION/SET UP */
 const itemsHtml = availableItems
   .map((item) => {
     const emoji = item.name === "bunny"
@@ -117,19 +121,34 @@ document.body.innerHTML = `
     </div>
   `;
 
-/** GAME LOGIC */
-// const creaturesDiv = document.getElementById("creatures") as HTMLElement;
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
+
+// Buttons for each available item
+availableItems.forEach((item) => {
+  const btn = document.getElementById(`buy-${item.name}`) as
+    | HTMLButtonElement
+    | null;
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    if (counter >= item.price) {
+      counter -= item.price;
+      owned[item.name]++;
+      item.price = Math.ceil(item.price * item.rate);
+      updateCounterDisplay();
+      updateItemUI(item);
+      updateBuyButtons();
+    }
+  });
+});
+
+/** FUNCTION DEFINITIONS/GAME LOGIC */
+// const creaturesDiv = document.getElementById("creatures") as HTMLElement;
 
 // Trim down counter display
 function updateCounterDisplay() {
   counterElement.innerText = parseFloat(counter.toFixed(2)).toString();
 }
-
-// Track owned items (initialize to 0 for every available item)
-const owned: { [key: string]: number } = {};
-availableItems.forEach((item) => (owned[item.name] = 0));
 
 // Update UI for a specific item
 function updateItemUI(item: Item) {
@@ -154,6 +173,7 @@ function updateBuyButtons() {
   });
 }
 
+/** EVENT HANDLING */
 // Ties these functions/updates to clicking the carrot image
 clickImage.addEventListener("click", () => {
   counter++;
@@ -161,24 +181,7 @@ clickImage.addEventListener("click", () => {
   updateBuyButtons();
 });
 
-// Buttons for each available item
-availableItems.forEach((item) => {
-  const btn = document.getElementById(`buy-${item.name}`) as
-    | HTMLButtonElement
-    | null;
-  if (!btn) return;
-  btn.addEventListener("click", () => {
-    if (counter >= item.price) {
-      counter -= item.price;
-      owned[item.name]++;
-      item.price = Math.ceil(item.price * item.rate);
-      updateCounterDisplay();
-      updateItemUI(item);
-      updateBuyButtons();
-    }
-  });
-});
-
+/** FINAL GAME SETUP/START GAME LOOP */
 // UI Setup
 updateCounterDisplay();
 availableItems.forEach(updateItemUI);
