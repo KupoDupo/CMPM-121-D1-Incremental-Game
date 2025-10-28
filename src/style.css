@@ -170,3 +170,8 @@ p {
   /* Moves it percent # away from the top of the screen */
   top: 20%;
 }
+
+.close {
+  border-color: #eaa458;
+  background-color: #779863;
+}
