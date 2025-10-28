@@ -107,7 +107,9 @@ document.body.innerHTML = `
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
     <div class="main">
-      <div id="increment" class="icon">🥕</div>
+      <div class="circlebg">
+        <div id="increment" class="icon">🥕</div>
+      </div>
       <h2><span><img id="coin" src="${carrotCoinSrc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
     </div>
     <div class="items">

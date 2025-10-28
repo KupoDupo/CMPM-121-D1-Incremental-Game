@@ -41,18 +41,30 @@ h2 {
   text-align: center;
 }
 
+.circlebg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  background-color: #779863;
+  border-radius: 50%;
+  border: 10px solid #b6da9f;
+}
+
+.circlebg:hover {
+  transform: scale(1.05);
+}
+
 .icon {
   font-size: 200px;
   vertical-align: top;
   cursor: pointer;
+  padding-bottom: 44px;
   -webkit-user-select: none; /* Safari/Chrome */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE/Edge */
   user-select: none;
-}
-
-.icon:hover {
-  transform: scale(1.05);
 }
 
 .coin {
