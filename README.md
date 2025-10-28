@@ -8,4 +8,6 @@ Run deno task dev to open up local web view of project.
 
 ## Credits
 
-I took inspiration from <https://github.com/ivli18/CMPM121-D1> for the circular backdrop behind my carrot so it more obviously looks like a button that users should be pressing.
+I took inspiration from <https://github.com/ivli18/CMPM121-D1> (ivli18) for the circular backdrop behind my carrot so it more obviously looks like a button that users should be pressing.
+
+I added minor statistics to mine (like amount of coins earned per second). This was inspired by: <https://github.com/Noah2271/cmpm-121-incremental-nbilledo> (Noah2271).

@@ -3,7 +3,8 @@ import carrotCoinSrc from "./carrot-piece.png";
 import "./style.css";
 
 /** VARIABLE DECLARATIONS */
-let counter: number = 0;
+let counter: number = 0; // total carrot coins
+let ccps: number = 0; // carrot coins per second
 
 // Item interface definition
 interface Item {
@@ -111,6 +112,7 @@ document.body.innerHTML = `
         <div id="increment" class="icon">🥕</div>
       </div>
       <h2><span><img id="coin" src="${carrotCoinSrc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
+      <h3>Carrot Coins Automatically Gained per Second: <span id="ccps"> ${ccps}</span></h3>
     </div>
     <div class="items">
       <h1>Items</h1>
@@ -125,6 +127,7 @@ document.body.innerHTML = `
 
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
+const ccpsElement = document.getElementById("ccps") as HTMLElement;
 
 // Buttons for each available item
 availableItems.forEach((item) => {
@@ -135,6 +138,7 @@ availableItems.forEach((item) => {
   btn.addEventListener("click", () => {
     if (counter >= item.price) {
       counter -= item.price;
+      ccps += item.increase;
       owned[item.name]++;
       item.price = Math.ceil(item.price * item.rate);
       updateCounterDisplay();
@@ -150,6 +154,7 @@ availableItems.forEach((item) => {
 // Trim down counter display
 function updateCounterDisplay() {
   counterElement.innerText = parseFloat(counter.toFixed(2)).toString();
+  ccpsElement.innerText = parseFloat(ccps.toFixed(2)).toString();
 }
 
 // Update UI for a specific item
