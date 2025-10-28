@@ -5,6 +5,8 @@ import "./style.css";
 /** VARIABLE DECLARATIONS */
 let counter: number = 0; // total carrot coins
 let ccps: number = 0; // carrot coins per second
+let clicked: number = 0; // times carrot clicked
+let total: number = 0; // total carrot coins earned
 
 // Item interface definition
 interface Item {
@@ -113,6 +115,7 @@ document.body.innerHTML = `
       </div>
       <h2><span><img id="coin" src="${carrotCoinSrc}" class="coin"/></span>Carrot Coins: <span id="counter"> ${counter} </span></h2>
       <h3>Carrot Coins Automatically Gained per Second: <span id="ccps"> ${ccps}</span></h3>
+      <button id="stats" class="stats">Stats</button>
     </div>
     <div class="items">
       <h1>Items</h1>
@@ -121,6 +124,12 @@ document.body.innerHTML = `
         ${itemsHtml}
       </div>
     </div>
+    <div id="pop-up" class="pop-up">
+      <h2>Statistics</h2>
+      <h3>Times Carrot Clicked: <span id="times-clicked">${clicked}</span></h3>
+      <h3>Total Carrot Coins Earned: <span id="total-coins-earned">${total}</span></h3>
+      <button id="close" class="close">Close</button>
+    </div>
     <div id="creatures">
     </div>
   `;
@@ -128,6 +137,13 @@ document.body.innerHTML = `
 const clickImage = document.getElementById("increment") as HTMLElement;
 const counterElement = document.getElementById("counter") as HTMLElement;
 const ccpsElement = document.getElementById("ccps") as HTMLElement;
+const clickedElement = document.getElementById("times-clicked") as HTMLElement;
+const totalElement = document.getElementById(
+  "total-coins-earned",
+) as HTMLElement;
+const popUpButton = document.getElementById("stats") as HTMLElement;
+const closeButton = document.getElementById("close") as HTMLElement;
+const popUp = document.getElementById("pop-up") as HTMLElement;
 
 // Buttons for each available item
 availableItems.forEach((item) => {
@@ -151,10 +167,26 @@ availableItems.forEach((item) => {
 /** FUNCTION DEFINITIONS/GAME LOGIC */
 // const creaturesDiv = document.getElementById("creatures") as HTMLElement;
 
+// Open the stats pop up (makes visible)
+function displayPopUp() {
+  if (popUp) {
+    popUp.style.visibility = "visible";
+  }
+}
+
+// Close the stats pop up (makes invisible)
+function closePopUp() {
+  if (popUp) {
+    popUp.style.visibility = "hidden";
+  }
+}
+
 // Trim down counter display
 function updateCounterDisplay() {
   counterElement.innerText = parseFloat(counter.toFixed(2)).toString();
   ccpsElement.innerText = parseFloat(ccps.toFixed(2)).toString();
+  clickedElement.innerText = clicked.toString();
+  totalElement.innerText = total.toString();
 }
 
 // Update UI for a specific item
@@ -184,8 +216,20 @@ function updateBuyButtons() {
 // Ties these functions/updates to clicking the carrot image
 clickImage.addEventListener("click", () => {
   counter++;
+  total++;
+  clicked++;
   updateCounterDisplay();
   updateBuyButtons();
+});
+
+// Event listener for opening pop up
+popUpButton.addEventListener("click", () => {
+  displayPopUp();
+});
+
+// Event listener for closing pop up
+closeButton.addEventListener("click", () => {
+  closePopUp();
 });
 
 /** FINAL GAME SETUP/START GAME LOOP */
@@ -207,6 +251,7 @@ function update(time: number) {
       }
     });
     if (added > 0) {
+      total += added;
       counter += added;
       updateCounterDisplay();
       updateBuyButtons();
